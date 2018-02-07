@@ -527,7 +527,11 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
             //Image
             if (imageView != null) {
                 if (imageRes != 0) {
-                    imageView.setImageResource(imageRes);
+                    try{
+                        imageView.setImageResource(imageRes);
+                    }catch (OutOfMemoryError e){
+                        imageView.setVisibility(View.GONE);
+                    }
                     imageView.setVisibility(View.VISIBLE);
                 } else {
                     imageView.setVisibility(View.GONE);
@@ -588,8 +592,8 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
             return imageView;
         }
 
-        public int getSlideId() {
-            return getArguments().getInt(ARGUMENT_ID);
+        public long getSlideId() {
+            return getArguments().getLong(ARGUMENT_ID);
         }
 
         @Override
