@@ -526,16 +526,32 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
 
             //Image
             if (imageView != null) {
+                int visible = View.GONE;
                 if (imageRes != 0) {
+                    try{
+                        Class.forName("com.bumptech.glide.Glide");
+                        com.bumptech.glide.Glide.with(this)
+                                .load(imageRes)
+                                .into(imageView);
+                        visible = View.VISIBLE;
+                    }catch (ClassNotFoundException e){
+                        // no glide
+                        try{
+                            imageView.setImageResource(imageRes);
+                            visible = View.VISIBLE;
+                        }catch (OutOfMemoryError oome){
+                            oome.printStackTrace();
+                        }
+                    }
+                    /*
                     try{
                         imageView.setImageResource(imageRes);
                     }catch (OutOfMemoryError e){
                         imageView.setVisibility(View.GONE);
                     }
-                    imageView.setVisibility(View.VISIBLE);
-                } else {
-                    imageView.setVisibility(View.GONE);
+                    */
                 }
+                imageView.setVisibility(visible);
             }
 
             @ColorInt
