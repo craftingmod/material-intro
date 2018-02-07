@@ -528,6 +528,7 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
             if (imageView != null) {
                 int visible = View.GONE;
                 if (imageRes != 0) {
+                    /*
                     try{
                         Class.forName("com.bumptech.glide.Glide");
                         com.bumptech.glide.Glide.with(this)
@@ -542,6 +543,13 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
                         }catch (OutOfMemoryError oome){
                             oome.printStackTrace();
                         }
+                    }
+                    */
+                    try{
+                        imageView.setImageResource(imageRes);
+                        visible = View.VISIBLE;
+                    }catch (OutOfMemoryError oome){
+                        oome.printStackTrace();
                     }
                     /*
                     try{
